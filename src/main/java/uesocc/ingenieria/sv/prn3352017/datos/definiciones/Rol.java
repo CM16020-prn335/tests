@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol")
     , @NamedQuery(name = "Rol.findByNombre", query = "SELECT r FROM Rol r WHERE r.nombre = :nombre")
     , @NamedQuery(name = "Rol.findByActivo", query = "SELECT r FROM Rol r WHERE r.activo = :activo")
-    , @NamedQuery(name = "Rol.findByDescripcion", query = "SELECT r FROM Rol r WHERE r.descripcion = :descripcion")})
+    , @NamedQuery(name = "Rol.findByDescripcion", query = "SELECT r FROM Rol r WHERE r.descripcion = :descripcion")
+   })
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,9 +65,11 @@ public class Rol implements Serializable {
         this.idRol = idRol;
     }
 
-    public Rol(Integer idRol, String nombre) {
+    public Rol(Integer idRol, String nombre,boolean activo,String descripcion) {
         this.idRol = idRol;
         this.nombre = nombre;
+        this.activo = activo;
+        this.descripcion = descripcion;
     }
 
     public Integer getIdRol() {

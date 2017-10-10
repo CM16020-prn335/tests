@@ -14,19 +14,15 @@
         </h:head>
 
         <h:body>
-
             <f:view>
                 <h:form>
-                    <h1><h:outputText value="ESTE SI FUNCIONA MORRO"/></h1>
-                    <p:dataTable id="dt" value="#{rolBean.listRol}" var="item" binding="#{rolBean.table}">
-                        <f:facet name="header">
-                            <h:outputText value="Roles  "/>   
-                            <p:selectBooleanCheckbox  value="hola" binding="#{rolBean.chk}"/>
-                           </f:facet>
-
-                        <p:column  filterBy="#{item.descripcion}" headerText="Id" filterMatchMode="contains">
-
-                            <h:outputText value="#{item.idRol}"/>   
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable value="#{rolBean.listRol}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="IdRol"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRol}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -48,8 +44,6 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-
-
             </f:view>
 
         </h:body>
