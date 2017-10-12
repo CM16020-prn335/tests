@@ -5,16 +5,26 @@
  */
 package uesocc.ingenieria.sv.prn3352017.datos.accseso;
 
-import javax.ejb.Local;
-import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
+import java.util.List;
 
 /**
  *
  * @author kevin
+ * @param <T>
  */
-@Local
-public interface RolFacadeLocal extends InterfaceFacade<Rol>{
+public interface InterfaceFacade<T> {
+    
+    void create(T rol);
 
-    
-    
+    void edit(T rol);
+
+    void remove(T rol);
+
+    T find(Object id);
+
+    List<T> findAll();
+
+    List<T> findRange(int[] range);
+
+    int count();
 }
