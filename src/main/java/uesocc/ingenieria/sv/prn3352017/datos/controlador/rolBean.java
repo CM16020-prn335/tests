@@ -2,55 +2,99 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+     */
 package uesocc.ingenieria.sv.prn3352017.datos.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.persistence.Table;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.component.selectbooleancheckbox.SelectBooleanCheckbox;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.RolFacadeLocal;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 
-@Named
-@RequestScoped
+@Named(value = "rolBean")
+@ViewScoped
 public class rolBean implements Serializable{
-    
-    private DataTable table;
-    private SelectBooleanCheckbox chk;
-    private Rol rol= new Rol
-    
-    
-    
-   public rolBean(){}
+   
+   
    
     @EJB 
     RolFacadeLocal RolFacade;
+    Rol rol = new Rol();
      List<Rol> listRol=new ArrayList<>();
+       boolean activo;
+       
+       public rolBean(){}
 
      @PostConstruct
     public void init() {
-       this.listRol=RolFacade.findAll();
-       
+       if(listRol!=null){
+           this.listRol=RolFacade.findAll();
+       }else{
+           this.listRol= Collections.EMPTY_LIST;
+       }
     }
-   
-  public void change(){
-      if (chk.isSelected()) {
-          listRol.clear();
-          listRol.add(e)
-          FacesContext fc;
-          table.setFilterMetadata(listRol);
+    
+      public void crear() {
+            try {
+                RolFacade.create(rol);
+                init();
+                showMessage("Datos ingresado correctamente.");
+                rol = new Rol();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+                showMessage("Error al ingresar los datos.");
+            }
+    }
+      
+      public void limpiar(){
+       rol = new Rol();
       }
-  }
-     
+         public void showMessage(String mensaje){
+               FacesContext context =FacesContext.getCurrentInstance();
+               context.addMessage(null, new FacesMessage(mensaje));
+           }
+        public List<Rol> obtenerUtilizados() {
+        List salida;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("uesocc.ingenieria.sv.prn3352017_postsFinalEstesieselBergon_war_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        Query c = em.createNamedQuery("Rol.noUtilizados");
+        salida = c.getResultList();
+        
+        if(salida != null){
+        return salida;
+        }else{
+            return Collections.EMPTY_LIST;
+        }
+    }
+        public void chkCambio(){
+            if(activo == true){
+                this.listRol = obtenerUtilizados();
+                System.out.println("Funciona");
+            }else{
+                init();
+                System.out.println("No funciona");
+        }
+        }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    
      public List<Rol> getListRol() {
         return listRol;
     }
@@ -67,21 +111,14 @@ public class rolBean implements Serializable{
         this.RolFacade = RolFacade;
     }
 
-    public DataTable getTable() {
-        return table;
+    public boolean isActivo() {
+        return activo;
     }
 
-    public void setTable(DataTable table) {
-        this.table = table;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
-    public SelectBooleanCheckbox getChk() {
-        return chk;
-    }
-
-    public void setChk(SelectBooleanCheckbox chk) {
-        this.chk = chk;
-    }
-
+   
      
 }
