@@ -5,6 +5,7 @@
  */
 package uesocc.ingenieria.sv.prn3352017.datos.accseso;
 
+import java.util.List;
 import javax.ejb.Local;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 
@@ -15,6 +16,8 @@ import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 @Local
 public interface RolFacadeLocal extends InterfaceFacade<Rol>{
 
+     public List<Rol> obtenerUtilizados();
+        
+  }
     
-    
-}
+

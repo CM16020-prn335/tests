@@ -5,9 +5,14 @@
  */
 package uesocc.ingenieria.sv.prn3352017.datos.accseso;
 
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 
 /**
@@ -27,6 +32,21 @@ public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
 
     public RolFacade() {
         super(Rol.class);
+    }
+    
+    @Override
+     public List<Rol> obtenerUtilizados() {
+        List salida;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("uesocc.ingenieria.sv.prn3352017_postsFinalEstesieselBergon_war_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        Query c = em.createNamedQuery("Rol.noUtilizados");
+        salida = c.getResultList();
+        
+        if(salida != null){
+        return salida;
+        }else{
+            return Collections.EMPTY_LIST;
+        }
     }
     
 }

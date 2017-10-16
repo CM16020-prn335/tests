@@ -15,10 +15,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.RolFacadeLocal;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 
@@ -32,7 +28,7 @@ public class rolBean implements Serializable{
     RolFacadeLocal RolFacade;
     Rol rol = new Rol();
      List<Rol> listRol=new ArrayList<>();
-       boolean activo;
+     boolean activo;
        
        public rolBean(){}
 
@@ -64,22 +60,10 @@ public class rolBean implements Serializable{
                FacesContext context =FacesContext.getCurrentInstance();
                context.addMessage(null, new FacesMessage(mensaje));
            }
-        public List<Rol> obtenerUtilizados() {
-        List salida;
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("uesocc.ingenieria.sv.prn3352017_postsFinalEstesieselBergon_war_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
-        Query c = em.createNamedQuery("Rol.noUtilizados");
-        salida = c.getResultList();
-        
-        if(salida != null){
-        return salida;
-        }else{
-            return Collections.EMPTY_LIST;
-        }
-    }
+       
         public void chkCambio(){
             if(activo == true){
-                this.listRol = obtenerUtilizados();
+                this.listRol = RolFacade.obtenerUtilizados();
                 System.out.println("Funciona");
             }else{
                 init();
