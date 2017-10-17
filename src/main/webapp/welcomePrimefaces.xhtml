@@ -17,7 +17,7 @@
 
             <f:view>
 
-                <h1 align="center">ROL</h1>
+               
                 <h:form id="frmtabla">
                     <div>
                     <p:selectBooleanCheckbox id="chkUsados" value="#{rolBean.activo}" itemLabel="Motrar los no utilizados" >
@@ -26,29 +26,21 @@
                 </div>
                     <div>
                     <h1 align="center"><p:outputLabel value="ROL"/></h1>
-                    <p:dataTable  id="tabla"  value="#{rolBean.listRol}" var="item">
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="IdRol"/>
-                            </f:facet>
+                    <p:dataTable  id="tabla"  value="#{rolBean.listRol}" var="item" selectionMode="single" selection="#{rolBean.rol}" rowKey="#{item.idRol}">
+                        <f:facet name="header">
+                            Roles
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{rolBean.onRowSelect}" update=":frmaa" />
+                        <p:column headerText="IdRol">
                             <p:outputLabel value="#{item.idRol}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Nombre"/>
-                            </f:facet>
+                        <p:column headerText="Nombre">
                             <p:outputLabel value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Activo"/>
-                            </f:facet>
+                        <p:column headerText="Actvio">
                             <p:outputLabel value="#{item.activo}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Descripcion"/>
-                            </f:facet>
+                           <p:column headerText="Descripcion">
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                     </p:dataTable>

@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.RolFacadeLocal;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 
@@ -70,7 +71,16 @@ public class rolBean implements Serializable{
                 System.out.println("No funciona");
         }
         }
-
+        
+    public void onRowSelect(SelectEvent event) {
+        rol = (Rol) event.getObject();
+    }
+ /*
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage("Car Unselected", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+*/
     public Rol getRol() {
         return rol;
     }
