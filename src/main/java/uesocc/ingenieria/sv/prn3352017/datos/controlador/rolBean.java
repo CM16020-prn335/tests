@@ -24,7 +24,6 @@ import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
 public class rolBean implements Serializable{
    
    
-   
     @EJB 
     RolFacadeLocal RolFacade;
     Rol rol = new Rol();
@@ -46,29 +45,56 @@ public class rolBean implements Serializable{
             try {
                 RolFacade.create(rol);
                 init();
-                showMessage("Datos ingresado correctamente.");
-                rol = new Rol();
+               // showMessage("Registro ingresado correctamente.");
+               
             } catch (Exception e) {
                 System.out.println("Error: " + e);
                 showMessage("Error al ingresar los datos.");
             }
     }
-      
-      public void limpiar(){
-       rol = new Rol();
+       public void borrar(){
+          try {
+              RolFacade.remove(rol);
+              init();
+              showMessage("Registro borrado exitosamente");
+              addMessage("Registro borrado exitosamente");
+          } catch (Exception e) {
+              showMessage("Error al borrar registro");
+          }
       }
+       
+       public void editar(){
+          try {
+                RolFacade.edit(rol);
+                init();
+               // showMessage("Registro ingresado correctamente.");
+                rol = null;
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+                showMessage("Error al ingresar los datos.");
+            }
+       
+       }
+         
+      public void limpiar(){
+       rol = null;
+      }
+      
+      public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.FACES_MESSAGES, summary);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+     
          public void showMessage(String mensaje){
                FacesContext context =FacesContext.getCurrentInstance();
                context.addMessage(null, new FacesMessage(mensaje));
-           }
+         }
        
         public void chkCambio(){
             if(activo == true){
                 this.listRol = RolFacade.obtenerUtilizados();
-                System.out.println("Funciona");
             }else{
                 init();
-                System.out.println("No funciona");
         }
         }
         
