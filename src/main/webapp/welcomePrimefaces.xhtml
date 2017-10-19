@@ -52,7 +52,8 @@
 
             <f:view>
                 <h3>CREAR</h3>
-                <h:form id="frmaa" >
+                <div align="center">
+                  <h:form id="frmaa" >
                     <p:growl id="message" showDetail="true" />
                     <p:panelGrid columns="2">
                         <p:outputLabel value="Nombre" />
@@ -63,22 +64,26 @@
                         <p:outputLabel value="Descripcion:" />
                         <p:inputTextarea rows="6" cols="33" value="#{rolBean.rol.descripcion}"/>
 
-                        <p:commandButton value="Agregar" actionListener="#{rolBean.crear()}" update="@all"/>
-                        <p:commandButton value="Editar" actionListener="#{rolBean.editar()}" update="@all"/>
-                        <p:commandButton value="Limpiar" actionListener="#{rolBean.limpiar()}" update="@all"/>
-                        <p:commandButton value="Borrar"  actionListener="#{rolBean.borrar()}"  update="@all">
-                            <p:confirm header="Confirmation" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
-                        </p:commandButton>
-
                     </p:panelGrid>
+                    <p:panel id="panel1" binding="#{rolBean.panel1}">
+                        <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
+                        <p:commandButton value="Cancelar" actionListener="#{rolBean.limpiar()}" update="@all" immediate="true"/>
+                    </p:panel>
+                    
+                    <p:panel id="panel2" binding="#{rolBean.panel2}">
+                        <p:commandButton value="Editar" actionListener="#{rolBean.editar()}" update="@all"/>
+                        <p:commandButton value="Eliminar"  actionListener="#{rolBean.borrar()}"  update="@all">
+                              <p:confirm header="Confirmation" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
+                          </p:commandButton>
+                        <p:commandButton value="Cancelar" actionListener="#{rolBean.limpiar()}" update="@all"/>
+                    </p:panel>
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
                 </h:form>
+                </div>
             </f:view>
-
-            <h:link outcome="acordeon" value="Primefaces welcome page" />
         </h:body>
 
     </f:view>
