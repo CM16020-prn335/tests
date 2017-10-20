@@ -39,19 +39,22 @@ public class rolBean implements Serializable{
        }
 
      @PostConstruct
-    public void init() {
-       if(listRol!=null){
+      public void init() {
+      llenarLista();
+      panel2.setVisible(false);
+    }
+    
+    public void llenarLista(){
+         if(listRol!=null){
            this.listRol=RolFacade.findAll();
        }else{
            this.listRol= Collections.EMPTY_LIST;
        }
-       panel2.setVisible(false);
     }
-    
       public void crear() {
             try {
                 RolFacade.create(rol);
-                
+                llenarLista();
                // showMessage("Registro ingresado correctamente.");
                 limpiar();
             } catch (Exception e) {
@@ -62,20 +65,20 @@ public class rolBean implements Serializable{
        public void borrar(){
           try {
               RolFacade.remove(rol);
-              init();
-              showMessage("Registro borrado exitosamente");
-              addMessage("Registro borrado exitosamente");
+           
+              limpiar();
+              llenarLista();
           } catch (Exception e) {
               showMessage("Error al borrar registro");
+              System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
           }
       }
        
        public void editar(){
           try {
                 RolFacade.edit(rol);
-                init();
-               // showMessage("Registro ingresado correctamente.");
-                
+               showMessage("Registro ingresado correctamente.");
+                llenarLista();
             } catch (Exception e) {
                 System.out.println("Error: " + e);
                 showMessage("Error al ingresar los datos.");
@@ -85,21 +88,21 @@ public class rolBean implements Serializable{
          
       public void limpiar(){
         if (rol!=null) {
-       rol=null;
+        rol= new Rol();
        panel1.setVisible(true);
        panel2.setVisible(false);
           }
       }
       
-      public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.FACES_MESSAGES, summary);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-     
+    
          public void showMessage(String mensaje){
-               FacesContext context =FacesContext.getCurrentInstance();
-               context.addMessage(null, new FacesMessage(mensaje));
-         }
+               
+        FacesContext context = FacesContext.getCurrentInstance();
+         
+        context.addMessage(null, new FacesMessage("ERROR", mensaje) );
+        }
+   
+         
        
         public void chkCambio(){
             if(activo == true){

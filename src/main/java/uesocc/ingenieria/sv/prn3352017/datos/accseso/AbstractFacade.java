@@ -24,15 +24,25 @@ public abstract class AbstractFacade<T> {
 
     public void create(T entity) {
         try {
-              getEntityManager().persist(entity);
+            EntityManager em = getEntityManager();
+              if (em!=null) {
+                em.persist(entity);
+            }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
       
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+         try {
+            EntityManager em = getEntityManager();
+              if (em!=null) {
+                em.merge(entity);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void remove(T entity) {

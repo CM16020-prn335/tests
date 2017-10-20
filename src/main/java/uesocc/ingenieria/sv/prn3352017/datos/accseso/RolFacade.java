@@ -35,6 +35,10 @@ public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
     }
     
     @Override
+    /**
+     * Ejecuta una NamedQuery y obtiene los roles no utilizados desde la basa de datos
+     * @return retorna una lista de objetos tipo Rol
+     */
      public List<Rol> obtenerUtilizados() {
         List salida;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("uesocc.ingenieria.sv.prn3352017_postsFinalEstesieselBergon_war_1.0-SNAPSHOTPU");
