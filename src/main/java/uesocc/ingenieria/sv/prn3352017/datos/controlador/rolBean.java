@@ -82,7 +82,6 @@ public class rolBean implements Serializable{
               showMessage("Registro eliminado correctamente.");
             
           } catch (Exception e) {
-              showMessage("Error al borrar registro");
               System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
           }
             limpiar();
