@@ -89,6 +89,9 @@ public class rolBean implements Serializable{
               llenarLista();
       }
        
+       /**
+        * Invaco al metodo edit de la clase AbstractFacade para editar un registro
+        */
        public void editar(){
           try {
                 RolFacade.edit(rol);
@@ -101,6 +104,9 @@ public class rolBean implements Serializable{
        
        }
          
+       /**
+        * si el objeto rol es diferente de nulo asigna una nueva instancia a este para dejarlo vacio, oculta el panel de botones de edicion
+        */
       public void limpiar(){
         if (rol!=null) {
         rol= new Rol();
@@ -110,6 +116,7 @@ public class rolBean implements Serializable{
       }
       
     
+      
          public void showMessage(String mensaje){
                
         FacesContext context = FacesContext.getCurrentInstance();
@@ -118,7 +125,9 @@ public class rolBean implements Serializable{
         }
    
          
-       
+       /**
+        * evalua si la propiedad "activo" es true o false para filtrar datos por medio del metodo ObtenerUtilizados
+        */
         public void chkCambio(){
             if(activo == true){
                 this.listRol = RolFacade.obtenerUtilizados();
@@ -127,6 +136,10 @@ public class rolBean implements Serializable{
         }
         }
         
+        /**
+         * Recice un evente de tipo SelectEvent, asigna los valores del objeto recivido a las propiedades del objeto rol
+         * @param event 
+         */
     public void onRowSelect(SelectEvent event) {
         rol = (Rol) event.getObject();
         panel1.setVisible(false);
