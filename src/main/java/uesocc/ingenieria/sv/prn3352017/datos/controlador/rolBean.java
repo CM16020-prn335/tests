@@ -37,13 +37,19 @@ public class rolBean implements Serializable{
        
        public rolBean(){
        }
-
+      /**
+       * Este metodo carga la lista inicial de datos a la DataTable al ingresar a la aplicacion
+       */
      @PostConstruct
       public void init() {
       llenarLista();
       panel2.setVisible(false);
     }
     
+      /**
+       * Invoca el metodo findAll de la clase abstractFacade que retorna una lista de registros de la base de datos,
+       * posteriormente se asigna una lista propiedad de esta clase
+       */
     public void llenarLista(){
          if(listRol!=null){
            this.listRol=RolFacade.findAll();
@@ -51,6 +57,10 @@ public class rolBean implements Serializable{
            this.listRol= Collections.EMPTY_LIST;
        }
     }
+    
+    /**
+     * invoca al metodo create de la clase AbstractFacade y crea un registro en la DB
+     */
       public void crear() {
             try {
                 RolFacade.create(rol);
@@ -62,16 +72,21 @@ public class rolBean implements Serializable{
                 showMessage("Error al ingresar los datos.");
             }
     }
+      
+      /**
+       * Elimina registros de la DB utilizando el metodo remove de la clase AbstractFacade
+       */
        public void borrar(){
           try {
               RolFacade.remove(rol);
-           
-              limpiar();
-              llenarLista();
+              showMessage("Registro eliminado correctamente.");
+            
           } catch (Exception e) {
               showMessage("Error al borrar registro");
               System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
           }
+            limpiar();
+              llenarLista();
       }
        
        public void editar(){
