@@ -66,11 +66,10 @@
                         <p:inputTextarea rows="6" cols="33" value="#{rolBean.rol.descripcion}"/>
 
                     </p:panelGrid>
-                    
                     <p:panel id="panel1" binding="#{rolBean.panel1}">
                         <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
                         <p:commandButton value="Cancelar"  immediate="true">
-                            <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
+                            <p:ajax event="click" listener="#{rolBean.cancelar()}" update=":frmaa"/>
                           </p:commandButton>
                     </p:panel>
                     
@@ -79,8 +78,8 @@
                         <p:commandButton value="Eliminar"  actionListener="#{rolBean.borrar()}"  update="@all">
                               <p:confirm header="Confirmacion" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
                           </p:commandButton>
-                       <p:commandButton value="Cancelar"  immediate="true">
-                            <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
+                        <p:commandButton value="Cancelar"  immediate="true" >
+                           <p:ajax event="click" listener="#{rolBean.cancelar()}" update=":frmaa"/>
                           </p:commandButton>
                     </p:panel>
                     

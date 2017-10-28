@@ -6,6 +6,10 @@
 package uesocc.ingenieria.sv.prn3352017.datos.accseso;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 /**
@@ -25,7 +29,7 @@ public abstract class AbstractFacade<T> {
     public void create(T entity) {
         try {
             EntityManager em = getEntityManager();
-              if (em!=null) {
+              if (em!=null && entity!=null) {
                 em.persist(entity);
             }
         } catch (Exception e) {
@@ -37,7 +41,7 @@ public abstract class AbstractFacade<T> {
     public void edit(T entity) {
          try {
             EntityManager em = getEntityManager();
-              if (em!=null) {
+             if (em!=null && entity!=null) {
                 em.merge(entity);
             }
         } catch (Exception e) {
@@ -46,8 +50,24 @@ public abstract class AbstractFacade<T> {
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+     EntityManager em = getEntityManager();
+       if (em!=null && entity!=null) {
+          try {
+              em.remove(em.merge(entity));
+              System.out.println("REMOVE");
+              showMessage("Registro eliminado correctamente.");
+        } catch (Exception e) {
+            showMessage("Error al eliminar registro");
+            System.out.println("ERROR EN REMOVE"+e.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+      }
     }
+    
+        public void showMessage(String mensaje){
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informacion", mensaje));
+    
+        }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);

@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.component.panel.Panel;
@@ -37,6 +37,7 @@ public class rolBean implements Serializable{
        
        public rolBean(){
        }
+       
       /**
        * Este metodo carga la lista inicial de datos a la DataTable al ingresar a la aplicacion
        */
@@ -44,6 +45,7 @@ public class rolBean implements Serializable{
       public void init() {
       llenarLista();
       panel2.setVisible(false);
+      System.out.println("POSTCONSTRUCT");
     }
     
       /**
@@ -53,6 +55,7 @@ public class rolBean implements Serializable{
     public void llenarLista(){
          if(listRol!=null){
            this.listRol=RolFacade.findAll();
+                    System.out.println("LLENARLISTA");
        }else{
            this.listRol= Collections.EMPTY_LIST;
        }
@@ -65,11 +68,9 @@ public class rolBean implements Serializable{
             try {
                 RolFacade.create(rol);
                 llenarLista();
-               // showMessage("Registro ingresado correctamente.");
                 limpiar();
             } catch (Exception e) {
                 System.out.println("Error: " + e);
-                showMessage("Error al ingresar los datos.");
             }
     }
       
@@ -77,15 +78,17 @@ public class rolBean implements Serializable{
        * Elimina registros de la DB utilizando el metodo remove de la clase AbstractFacade
        */
        public void borrar(){
-          try {
-              RolFacade.remove(rol);
-              showMessage("Registro eliminado correctamente.");
-            
-          } catch (Exception e) {
-              System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
-          }
-            limpiar();
-              llenarLista();
+           if (RolFacade!=null) {
+                try {
+                    RolFacade.remove(rol);
+                    llenarLista();
+                    cancelar();
+                    System.out.println("BORRAR");
+                 } catch (Exception e) {
+                     System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
+                     Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+               }
+           }
       }
        
        /**
@@ -94,11 +97,9 @@ public class rolBean implements Serializable{
        public void editar(){
           try {
                 RolFacade.edit(rol);
-               showMessage("Registro ingresado correctamente.");
                 llenarLista();
             } catch (Exception e) {
                 System.out.println("Error: " + e);
-                showMessage("Error al ingresar los datos.");
             }
        
        }
@@ -114,15 +115,16 @@ public class rolBean implements Serializable{
           }
       }
       
-    
+      public void cancelar(){
+        if(rol!=null){
+            rol=null;
+            panel1.setVisible(true);
+            panel2.setVisible(false);
+            System.out.println("CANCELAR");
+         }
+      }
       
-         public void showMessage(String mensaje){
-               
-        FacesContext context = FacesContext.getCurrentInstance();
-         
-        context.addMessage(null, new FacesMessage("ERROR", mensaje) );
-        }
-   
+    
          
        /**
         * evalua si la propiedad "activo" es true o false para filtrar datos por medio del metodo ObtenerUtilizados

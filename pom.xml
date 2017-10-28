@@ -32,6 +32,13 @@
             <artifactId>primefaces</artifactId>
             <version>5.0</version>
         </dependency>
+        
+     <dependency>
+         <groupId>org.primefaces.themes</groupId>
+          <artifactId>all-themes</artifactId>
+         <version>1.0.10</version>
+     </dependency>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -101,6 +108,12 @@
        
     </build>
     <repositories>
+        <repository>
+            <url>https://mvnrepository.com/artifact/org.primefaces.themes/all-themes</url>
+            <id>temas</id>
+            <layout>default</layout>
+            <name>temas chidos</name>
+        </repository>
         <repository>
             <url>http://repository.primefaces.org/</url>
             <id>PrimeFaces-maven-lib</id>
