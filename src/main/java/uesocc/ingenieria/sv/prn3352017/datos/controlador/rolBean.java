@@ -13,9 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.faces.view.ViewScoped; 
 import javax.inject.Named;
-import org.primefaces.component.panel.Panel;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.RolFacadeLocal;
@@ -30,9 +29,7 @@ public class rolBean implements Serializable{
     RolFacadeLocal RolFacade;
     Rol rol = new Rol();
     List<Rol> listRol=new ArrayList<>();
-    boolean activo;
-    Panel panel1 = new Panel();
-    Panel panel2 = new Panel();
+    boolean activo, panel=true;
     
        
        public rolBean(){
@@ -44,7 +41,6 @@ public class rolBean implements Serializable{
      @PostConstruct
       public void init() {
       llenarLista();
-      panel2.setVisible(false);
       System.out.println("POSTCONSTRUCT");
     }
     
@@ -55,6 +51,7 @@ public class rolBean implements Serializable{
     public void llenarLista(){
          if(listRol!=null){
            this.listRol=RolFacade.findAll();
+           limpiar();
                     System.out.println("LLENARLISTA");
        }else{
            this.listRol= Collections.EMPTY_LIST;
@@ -68,7 +65,8 @@ public class rolBean implements Serializable{
             try {
                 RolFacade.create(rol);
                 llenarLista();
-                limpiar();
+                cancelar();
+                System.out.println("CREAR");
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
@@ -77,19 +75,17 @@ public class rolBean implements Serializable{
       /**
        * Elimina registros de la DB utilizando el metodo remove de la clase AbstractFacade
        */
-       public void borrar(){
-           if (RolFacade!=null) {
+       public void borrar() {
                 try {
                     RolFacade.remove(rol);
                     llenarLista();
-                    cancelar();
+                    limpiar();
                     System.out.println("BORRAR");
                  } catch (Exception e) {
                      System.out.println("ESTO DA ERROR PAPU"+e.getMessage());
                      Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                }
            }
-      }
        
        /**
         * Invaco al metodo edit de la clase AbstractFacade para editar un registro
@@ -108,21 +104,19 @@ public class rolBean implements Serializable{
         * si el objeto rol es diferente de nulo asigna una nueva instancia a este para dejarlo vacio, oculta el panel de botones de edicion
         */
       public void limpiar(){
-        if (rol!=null) {
-        rol= new Rol();
-       panel1.setVisible(true);
-       panel2.setVisible(false);
+       rol= new Rol();
+       panel=true;
           }
-      }
+      
       
       public void cancelar(){
-        if(rol!=null){
-            rol=null;
-            panel1.setVisible(true);
-            panel2.setVisible(false);
+            rol.setActivo(false);
+            rol.setDescripcion(null);
+            rol.setIdRol(null);
+            rol.setNombre(null);
             System.out.println("CANCELAR");
+            panel=true;
          }
-      }
       
     
          
@@ -133,8 +127,8 @@ public class rolBean implements Serializable{
             if(activo == true){
                 this.listRol = RolFacade.obtenerUtilizados();
             }else{
-                init();
-        }
+                llenarLista();
+          }
         }
         
         /**
@@ -143,20 +137,20 @@ public class rolBean implements Serializable{
          */
     public void onRowSelect(SelectEvent event) {
         rol = (Rol) event.getObject();
-        panel1.setVisible(false);
-        panel2.setVisible(true);
+        panel=false;
 
     }
  
     public void onRowUnselect(UnselectEvent event) {
-        
+        cancelar();
+        panel=true;
         
     }
 
     public Rol getRol() {
         return rol;
     }
-
+ 
     public void setRol(Rol rol) {
         this.rol = rol;
     }
@@ -185,21 +179,15 @@ public class rolBean implements Serializable{
         this.activo = activo;
     }
 
-    public Panel getPanel1() {
-        return panel1;
+    public boolean isPanel() {
+        return panel;
     }
 
-    public void setPanel1(Panel panel1) {
-        this.panel1 = panel1;
+    public void setPanel(boolean panel) {
+        this.panel = panel;
     }
 
-    public Panel getPanel2() {
-        return panel2;
-    }
 
-    public void setPanel2(Panel panel2) {
-        this.panel2 = panel2;
-    }
 
    
      

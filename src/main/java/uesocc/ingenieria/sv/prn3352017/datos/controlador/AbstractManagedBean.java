@@ -5,10 +5,16 @@
  */
 package uesocc.ingenieria.sv.prn3352017.datos.controlador;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+import uesocc.ingenieria.sv.prn3352017.datos.accseso.InterfaceFacade;
+
 /**
  *
  * @author kevin
  */
-public class AbstractManagedBean {
-    
+public abstract class AbstractManagedBean<T> implements Serializable{
+
+
 }

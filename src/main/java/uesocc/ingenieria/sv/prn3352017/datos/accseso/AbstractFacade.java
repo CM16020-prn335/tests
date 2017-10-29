@@ -31,12 +31,32 @@ public abstract class AbstractFacade<T> {
             EntityManager em = getEntityManager();
               if (em!=null && entity!=null) {
                 em.persist(entity);
+                 showMessage("Registro creado correctamente.");
+                System.out.println("CREATE");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showMessage("Error al crear correctamente.");
+            System.out.println("ERROR CREATE");
+            System.out.println(e);
         }
       
     }
+    
+    public void remove(T entity) {
+     EntityManager em = getEntityManager();
+      
+          try {
+               if (em!=null && entity!=null) {
+              em.remove(em.merge(entity));
+              System.out.println("REMOVE");
+              showMessage("Registro eliminado correctamente.");
+               }
+        } catch (Exception e) {
+            showMessage("Error al eliminar registro");
+            System.out.println("ERROR EN REMOVE"+e.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+      }
 
     public void edit(T entity) {
          try {
@@ -49,23 +69,12 @@ public abstract class AbstractFacade<T> {
         }
     }
 
-    public void remove(T entity) {
-     EntityManager em = getEntityManager();
-       if (em!=null && entity!=null) {
-          try {
-              em.remove(em.merge(entity));
-              System.out.println("REMOVE");
-              showMessage("Registro eliminado correctamente.");
-        } catch (Exception e) {
-            showMessage("Error al eliminar registro");
-            System.out.println("ERROR EN REMOVE"+e.getMessage());
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-        }
-      }
-    }
+    
+       
+   
     
         public void showMessage(String mensaje){
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informacion", mensaje));
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensaje));
     
         }
 
