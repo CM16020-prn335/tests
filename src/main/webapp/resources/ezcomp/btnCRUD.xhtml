@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="managedBean" required="true"/>
+        <cc:attribute name="update" required="true" type="java.lang.String"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+      <cc:implementation>
+          <p:commandButton value="Guardar" actionListener="#{cc.attrs.managedBean.crear()}" update="#{cc.attrs.update}"/>
+          <p:commandButton value="Modificar" actionListener="#{cc.attrs.managedBean.editar()}" update="#{cc.attrs.update}"/>
+        <p:commandButton value="Eliminar"  actionListener="#{cc.attrs.managedBean.eliminar()}"  update="@all">
+             <p:confirm header="Confirmacion" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
+        </p:commandButton>
+        
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>
+    </cc:implementation>
+</html>

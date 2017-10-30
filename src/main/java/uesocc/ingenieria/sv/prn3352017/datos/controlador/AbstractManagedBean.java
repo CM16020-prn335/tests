@@ -36,7 +36,7 @@ public abstract class AbstractManagedBean<T> implements Serializable {
 
         if (fl != null && entity != null) {
             try {
-                getFacadeLocal().create(entity);
+                fl.create(entity);
                 llenarLista();
                 System.out.println("CREAR");
             } catch (Exception e) {
