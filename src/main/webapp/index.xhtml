@@ -12,98 +12,97 @@
                 <title>Entity Rol</title>
             </f:facet>
         </h:head>
-        
+
         <h:body>
             <ui:composition template="./resources/Templates/Template1.xhtml">
                 <ui:define name="content">
-                    
-                
-            <f:view>
-                <h:form id="frmtabla">
-                    <div>
-                        <p:selectBooleanCheckbox id="chkUsados" value="#{rolBean.activo}" itemLabel="Motrar los no utilizados" >
-                            <p:ajax update="tabla" listener="#{rolBean.chkCambio()}"/>
-                        </p:selectBooleanCheckbox>
-                    </div>
-                    <div>
-                        <h1 align="center">
-                            <p:outputLabel value="ROL"/>
-                        </h1>
-                        <p:dataTable  id="tabla"  value="#{rolBean.listRol}" var="item" selectionMode="single"  selection="#{rolBean.rol}"
-                                                  rowKey="#{item.idRol}"  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} 
-                                                  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                   rowsPerPageTemplate="5,10,15" tableStyleClass="ui-priority-primary" >
-                            <f:facet name="header">
-                                Roles
-                            </f:facet>
-                            //ajax para seleccionar registro
-                            <p:ajax event="rowSelect" listener="#{rolBean.onRowSelect}" update=":frmaa" />
-                            <p:ajax event="rowUnselect" listener="#{rolBean.onRowUnselect}" update=":frmaa" />
-                            //Columnas
-                            <p:column headerText="IdRol">
-                                <p:outputLabel value="#{item.idRol}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Nombre">
-                                <p:outputLabel value="#{item.nombre}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Actvio">
-                                <p:outputLabel value="#{item.activo}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Descripcion">
-                                <h:outputText value="#{item.descripcion}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </div>
-                </h:form>
-            </f:view>
 
-            <f:view>
-                
-                <div align="center">
-                    <h3>CREAR/EDITAR</h3>
-                  <h:form id="frmaa" >
-                    <p:growl id="message" showDetail="true" />
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Nombre" />
-                        <p:inputText value="#{rolBean.rol.nombre}" required="true" requiredMessage="Campo obligatorio, no puede dejarlo vacio"/>
 
-                        <p:outputLabel value="Activo:" />
-                        <p:selectBooleanCheckbox value="#{rolBean.rol.activo}" />
-                        <p:outputLabel value="Descripcion:" />
-                        <p:inputTextarea rows="6" cols="33" value="#{rolBean.rol.descripcion}"/>
+                    <f:view>
+                        <h:form id="frmtabla">
+                            <div>
+                                <p:selectBooleanCheckbox id="chkUsados" value="#{rolBean.activo}" itemLabel="Motrar los no utilizados" >
+                                    //ajax de check box poner aqui 
+                                </p:selectBooleanCheckbox>
+                            </div>
+                            <div>
+                                <h1 align="center">
+                                    <p:outputLabel value="ROL"/>
+                                </h1>
+                                <p:dataTable  id="tabla"  value="#{rolBean.listaRegistros}" var="item" selectionMode="single"  selection="#{rolBean.rol}"
+                                              rowKey="#{item.idRol}"  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} 
+                                              {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                              rowsPerPageTemplate="5,10,15" tableStyleClass="ui-priority-primary" >
+                                    <f:facet name="header">
+                                        Roles
+                                    </f:facet>
+                                    //ajax para seleccionar registro
+                                    <p:ajax event="rowSelect" listener="#{rolBean.onRowSelect}" update=":frmaa" />
+                                    <p:ajax event="rowUnselect" listener="#{rolBean.onRowUnselect}" update=":frmaa" />
+                                    //Columnas
+                                    <p:column headerText="IdRol">
+                                        <p:outputLabel value="#{item.idRol}"/>
+                                    </p:column>
 
-                    </p:panelGrid>
-                    <p:panel id="panel1"  visible="#{rolBean.panel}">
-                        <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
-                        <p:commandButton value="Cancelar"  immediate="true">
-                            <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
-                          </p:commandButton>
-                    </p:panel>
-                    
-                    <p:panel id="panel2" visible="#{!rolBean.panel}">
-                        <p:commandButton value="Editar" actionListener="#{rolBean.editar()}" update="@all"/>
-                        <p:commandButton value="Eliminar"  actionListener= "#{rolBean.borrar()}"   update="@all">
-                              <p:confirm header="Confirmacion" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
-                          </p:commandButton>
-                        <p:commandButton value="Cancelar"  immediate="true" >
-                            <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
-                          </p:commandButton>
-                    </p:panel>
-                    
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>
-                </h:form>
-                </div>
-            </f:view>
-              </ui:define>
+                                    <p:column headerText="Nombre">
+                                        <p:outputLabel value="#{item.nombre}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Actvio">
+                                        <p:outputLabel value="#{item.activo}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Descripcion">
+                                        <h:outputText value="#{item.descripcion}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </h:form>
+                    </f:view>
+
+                    <f:view>
+
+                        <div align="center">
+                            <h3>CREAR/EDITAR</h3>
+                            <h:form id="frmaa" >
+                                <p:growl id="message" showDetail="true" />
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Nombre" />
+                                    <p:inputText value="#{rolBean.rol.nombre}" required="true" requiredMessage="Campo obligatorio, no puede dejarlo vacio"/>
+                                    <p:outputLabel value="Activo:" />
+                                    <p:selectBooleanCheckbox value="#{rolBean.rol.activo}" />
+                                    <p:outputLabel value="Descripcion:" />
+                                    <p:inputTextarea rows="6" cols="33" value="#{rolBean.rol.descripcion}"/>
+
+                                </p:panelGrid>
+                                <p:panel id="panel1"  visible="#{rolBean.panel}">
+                                    <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
+                                    <p:commandButton value="Cancelar"  immediate="true">
+                                        <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
+                                    </p:commandButton>
+                                </p:panel>
+
+                                <p:panel id="panel2" visible="#{!rolBean.panel}">
+                                    <p:commandButton value="Editar" actionListener="#{rolBean.editar()}" update="frmaa :frmtabla"/>
+                                    <p:commandButton value="Eliminar"  actionListener= "#{rolBean.eliminar()}"   update="@form :frmtabla">
+                                        <p:confirm header="Confirmacion" message="¿Esta seguro que desea continuar?"  icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="Cancelar"  immediate="true" >
+                                        <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
+                                    </p:commandButton>
+                                </p:panel>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </h:form>
+                        </div>
+                    </f:view>
+                </ui:define>
             </ui:composition>
         </h:body>
-     
+
     </f:view>
 </html>
 

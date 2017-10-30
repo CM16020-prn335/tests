@@ -19,23 +19,25 @@ import javax.persistence.EntityManager;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
-
+       
+    
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
+        
     }
 
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
         try {
-            EntityManager em = getEntityManager();
+             EntityManager em = getEntityManager();
               if (em!=null && entity!=null) {
                 em.persist(entity);
                  showMessage("Registro creado correctamente.");
                 System.out.println("CREATE");
             }
         } catch (Exception e) {
-            showMessage("Error al crear correctamente.");
+            showMessage("Error al crear registro.");
             System.out.println("ERROR CREATE");
             System.out.println(e);
         }
@@ -43,9 +45,9 @@ public abstract class AbstractFacade<T> {
     }
     
     public void remove(T entity) {
-     EntityManager em = getEntityManager();
       
           try {
+              EntityManager em = getEntityManager();
                if (em!=null && entity!=null) {
               em.remove(em.merge(entity));
               System.out.println("REMOVE");
@@ -53,7 +55,7 @@ public abstract class AbstractFacade<T> {
                }
         } catch (Exception e) {
             showMessage("Error al eliminar registro");
-            System.out.println("ERROR EN REMOVE"+e.getMessage());
+            System.out.println("ERROR EN REMOVE"+e);
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
         }
       }
