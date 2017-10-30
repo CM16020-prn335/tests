@@ -12,7 +12,6 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.InterfaceFacade;
 import uesocc.ingenieria.sv.prn3352017.datos.accseso.RolFacadeLocal;
 import uesocc.ingenieria.sv.prn3352017.datos.definiciones.Rol;
@@ -77,25 +76,11 @@ public class rolBean extends AbstractManagedBean<Rol> implements Serializable {
      * para dejarlo vacio, oculta el panel de botones de edicion
      */
     public void limpiar() {
-        rol.setActivo(false);
-        rol.setDescripcion(null);
-        rol.setIdRol(null);
-        rol.setNombre(null);
+        rol=new Rol();
         System.out.println("LIMPIAR");
         panel = true;
     }
-
-    /**
-     * evalua si la propiedad "activo" es true o false para filtrar datos por
-     * medio del metodo ObtenerUtilizados
-     */
-//    public void chkCambio() {
-//        if (activo == true) {
-//            this.listRol = RolFacade.obtenerUtilizados();
-//        } else {
-//            llenarLista();
-//        }
-//    }
+    
 
     /**
      * Recice un evente de tipo SelectEvent, asigna los valores del objeto
@@ -105,15 +90,9 @@ public class rolBean extends AbstractManagedBean<Rol> implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         rol = (Rol) event.getObject();
-        panel = false;
-
+        panel=false;
     }
 
-    public void onRowUnselect(UnselectEvent event) {
-        limpiar();
-        panel = true;
-
-    }
 
     public Rol getRol() {
         return rol;

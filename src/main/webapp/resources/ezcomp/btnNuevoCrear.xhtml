@@ -6,13 +6,13 @@
 
     <!-- INTERFACE -->
     <cc:interface>
+        <cc:attribute name="managedBean" required="true"/>
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
-            <p:commandButton value="Cancelar"  immediate="true">
-                <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
-            </p:commandButton>
+        <p:commandButton value="Nuevo" actionListener="#{cc.attrs.managedBean.setPanel(false)}" update="@all"/>
+        <p:commandButton value="Cancelar"  actionListener="#{cc.attrs.managedBean.limpiar()}" immediate="true" update="@all"/>
     </cc:implementation>
 </html>
+

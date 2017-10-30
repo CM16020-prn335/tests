@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp">
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp" >
 
     <f:view contentType="text/html">
         <h:head>
@@ -19,10 +20,9 @@
 
 
                     <f:view>
-                        <h:form id="frmtabla">
+                        <h:form id="frmtabla" >
                             <div>
                                 <p:selectBooleanCheckbox id="chkUsados" value="#{rolBean.activo}" itemLabel="Motrar los no utilizados" >
-                                    //ajax de check box poner aqui 
                                 </p:selectBooleanCheckbox>
                             </div>
                             <div>
@@ -37,8 +37,7 @@
                                         Roles
                                     </f:facet>
                                     //ajax para seleccionar registro
-                                    <p:ajax event="rowSelect" listener="#{rolBean.onRowSelect}" update=":frmaa" />
-                                    <p:ajax event="rowUnselect" listener="#{rolBean.onRowUnselect}" update=":frmaa" />
+                                    <p:ajax event="rowSelect" listener="#{rolBean.onRowSelect}" update=":frmDatos" />
                                     //Columnas
                                     <p:column headerText="IdRol">
                                         <p:outputLabel value="#{item.idRol}"/>
@@ -57,15 +56,25 @@
                                     </p:column>
                                 </p:dataTable>
                             </div>
+                            
                         </h:form>
                     </f:view>
 
                     <f:view>
 
                         <div align="center">
-                            <h3>CREAR/EDITAR</h3>
-                            <h:form id="frmaa" >
-                                <p:growl id="message" showDetail="true" />
+                            
+                            
+                            <h:form id="frmDatos" >
+                                <h3>CREAR/EDITAR</h3>
+                                  <p:panel id="panel1" >
+                                    <ez:btnNuevoCrear managedBean="#{rolBean}"/>
+                                  </p:panel>
+                                
+                                 <p:growl id="message" showDetail="true" />
+                                 
+                                <p:panel id="panelDatos" rendered="#{!rolBean.panel}">
+                                    
                                 <p:panelGrid columns="2">
                                     <p:outputLabel value="Nombre" />
                                     <p:inputText value="#{rolBean.rol.nombre}" required="true" requiredMessage="Campo obligatorio, no puede dejarlo vacio"/>
@@ -75,22 +84,15 @@
                                     <p:inputTextarea rows="6" cols="33" value="#{rolBean.rol.descripcion}"/>
 
                                 </p:panelGrid>
-                                
-                                <p:panel id="panel1"  visible="#{rolBean.panel}">
-                                    <p:commandButton value="Crear" actionListener="#{rolBean.crear()}" update="@all"/>
-                                    <p:commandButton value="Cancelar"  immediate="true">
-                                        <p:ajax event="click" listener="#{rolBean.limpiar()}" update=":frmaa"/>
-                                    </p:commandButton>
-                                </p:panel>
-
-                                <p:panel id="panel2" visible="#{!rolBean.panel}">
-                                    <ez:btnCRUD managedBean="#{rolBean}" update="@all"/>
-                                       
                                     
+                                 <p:panel id="panel2" >
+                                    <ez:btnCRUD managedBean="#{rolBean}" update="@all"/>
                                 </p:panel>
+                                 </p:panel>
 
                                 
                             </h:form>
+                              
                         </div>
                     </f:view>
                 </ui:define>
