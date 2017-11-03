@@ -69,7 +69,7 @@
                 <version>2.3</version>
                      <configuration>
                     <warName>proyecto</warName>
-                    <outputDirectory>/home/kevin/Documentos/Progra3/Docker payara-postgresql/payara/ </outputDirectory>
+                    
                 </configuration>
             </plugin>
             

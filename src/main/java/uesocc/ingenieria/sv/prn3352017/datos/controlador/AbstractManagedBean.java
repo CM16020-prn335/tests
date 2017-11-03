@@ -21,8 +21,8 @@ public abstract class AbstractManagedBean<T> implements Serializable {
          this.entity = getEntity();
     }
     
-     InterfaceFacade fl;
-     T entity;
+    private InterfaceFacade fl;
+    private T entity;
     protected List<T> listaRegistros;
     
     protected abstract InterfaceFacade<T> getFacadeLocal();

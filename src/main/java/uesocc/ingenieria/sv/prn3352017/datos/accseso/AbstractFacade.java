@@ -72,9 +72,6 @@ public abstract class AbstractFacade<T> {
     }
 
     
-       
-   
-    
         public void showMessage(String mensaje){
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensaje));
     
