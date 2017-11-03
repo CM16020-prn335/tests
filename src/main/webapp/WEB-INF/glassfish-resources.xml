@@ -11,4 +11,24 @@
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:app/posts" object-type="user" pool-name="post-gre-sql_posts_mortal2017Pool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.postgresql.ds.PGSimpleDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="post-gre-sql_d9dis358b76g14_ywdntdiwltfafbPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="ec2-107-22-160-199.compute-1.amazonaws.com"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="d9dis358b76g14"/>
+        <property name="User" value="ywdntdiwltfafb"/>
+        <property name="Password" value="d33537426ad3f0a3babe5d78e7759503127ac51659390a6d82573ff2f8057058"/>
+        <property name="URL" value="jdbc:postgresql://ec2-107-22-160-199.compute-1.amazonaws.com:5432/d9dis358b76g14?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="java:app/jdbc" object-type="user" pool-name="post-gre-sql_d9dis358b76g14_ywdntdiwltfafbPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.postgresql.ds.PGSimpleDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="post-gre-sql_d4kk1gvc3tu2ov_ljrvqsbplnlbnpPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="ec2-184-72-247-126.compute-1.amazonaws.com"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="d4kk1gvc3tu2ov"/>
+        <property name="User" value="ljrvqsbplnlbnp"/>
+        <property name="Password" value="88d7131ed6e2d272a89774cd17367d6d5b696d59e107e1907314265357be2a76"/>
+        <property name="URL" value="jdbc:postgresql://ec2-184-72-247-126.compute-1.amazonaws.com:5432/d4kk1gvc3tu2ov?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="java:app/jdbc_heroku" object-type="user" pool-name="post-gre-sql_d4kk1gvc3tu2ov_ljrvqsbplnlbnpPool"/>
 </resources>

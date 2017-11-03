@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author kevin
  */
 @Entity
-@Table(name = "post_seccion", catalog = "posts", schema = "public")
+@Table(name = "post_seccion")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PostSeccion.findAll", query = "SELECT p FROM PostSeccion p")
